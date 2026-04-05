@@ -18,7 +18,7 @@
 // Usage:
 //
 //	ghset describe [repo]          — snapshot settings → YAML stdout
-//	ghset init [name] [--config f] — create repo from YAML config
+//	ghset init [name] [--from f]  — create repo from YAML config
 package main
 
 import (

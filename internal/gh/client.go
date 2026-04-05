@@ -82,12 +82,16 @@ func (c *Client) Call(ctx context.Context, method, endpoint string, body any) ([
 }
 
 // RepoCreate creates a new repository via gh repo create.
-func (c *Client) RepoCreate(ctx context.Context, name string, private bool) (string, error) {
+// visibility must be "public", "private", or "internal".
+func (c *Client) RepoCreate(ctx context.Context, name string, visibility string) (string, error) {
 	args := []string{"repo", "create", name, "--add-readme"}
 
-	if private {
+	switch visibility {
+	case "private":
 		args = append(args, "--private")
-	} else {
+	case "internal":
+		args = append(args, "--internal")
+	default:
 		args = append(args, "--public")
 	}
 
