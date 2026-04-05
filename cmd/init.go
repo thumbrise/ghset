@@ -304,7 +304,11 @@ func waitForRepo(ctx context.Context, client *gh.Client, repo string) error {
 			return nil
 		}
 
-		time.Sleep(time.Second)
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-time.After(time.Second):
+		}
 	}
 
 	return fmt.Errorf("%w after 5 seconds: %s", ErrRepoNotReady, repo)
