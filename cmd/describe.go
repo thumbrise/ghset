@@ -190,7 +190,7 @@ func fetchSettings(ctx context.Context, client *gh.Client, repo string) (config.
 
 // fetchLabels fetches all labels from GET /repos/{owner}/{repo}/labels.
 func fetchLabels(ctx context.Context, client *gh.Client, repo string) ([]config.Label, error) {
-	data, err := client.Get(ctx, fmt.Sprintf("repos/%s/labels?per_page=100", repo))
+	data, err := client.GetPaginated(ctx, fmt.Sprintf("repos/%s/labels?per_page=100", repo))
 	if err != nil {
 		return nil, fmt.Errorf("fetching labels: %w", err)
 	}
@@ -214,7 +214,7 @@ func fetchLabels(ctx context.Context, client *gh.Client, repo string) ([]config.
 
 // fetchRulesets fetches all rulesets with full details.
 func fetchRulesets(ctx context.Context, client *gh.Client, repo string) ([]config.Ruleset, error) {
-	data, err := client.Get(ctx, fmt.Sprintf("repos/%s/rulesets?includes=all", repo))
+	data, err := client.GetPaginated(ctx, fmt.Sprintf("repos/%s/rulesets?includes=all", repo))
 	if err != nil {
 		return nil, fmt.Errorf("fetching rulesets: %w", err)
 	}

@@ -45,6 +45,11 @@ func (c *Client) Get(ctx context.Context, endpoint string) ([]byte, error) {
 	return c.run(ctx, []string{"api", endpoint})
 }
 
+// GetPaginated calls gh api --paginate {endpoint} and returns all pages concatenated.
+func (c *Client) GetPaginated(ctx context.Context, endpoint string) ([]byte, error) {
+	return c.run(ctx, []string{"api", "--paginate", endpoint})
+}
+
 // GetStatus calls gh api {endpoint} and returns the exit code.
 // Used for endpoints that signal via HTTP status (204 vs 404).
 func (c *Client) GetStatus(ctx context.Context, endpoint string) (int, error) {
