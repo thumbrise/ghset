@@ -16,6 +16,7 @@ package cmd
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 
@@ -114,6 +115,8 @@ func resolveApplyRepo(args []string) (string, error) {
 	return "", ErrNoRepo
 }
 
+var ErrStdinStat = errors.New("os.Stdin.Stat() error")
+
 // loadFromSource loads config from --from flag or stdin. Shared by init and apply.
 func loadFromSource(ctx context.Context, client *gh.Client, from string) (config.Repo, error) {
 	if from != "" {
@@ -121,7 +124,11 @@ func loadFromSource(ctx context.Context, client *gh.Client, from string) (config
 	}
 
 	// Check if stdin has data (pipe).
-	stat, _ := os.Stdin.Stat()
+	stat, err := os.Stdin.Stat()
+	if err != nil {
+		return config.Repo{}, fmt.Errorf("%w: %w", ErrStdinStat, err)
+	}
+
 	if (stat.Mode() & os.ModeCharDevice) == 0 {
 		return config.Load(os.Stdin)
 	}
