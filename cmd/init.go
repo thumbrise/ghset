@@ -180,8 +180,8 @@ func resolveRepoName(args []string) (string, error) {
 		return args[0], nil
 	}
 
-	//nolint:godox // Will be replaced with huh prompt.
-	// TODO(interactive): huh prompt for repo name
+	//nolint:godox
+	// TODO(#5): replace with huh prompt
 	return "", ErrNoRepoName
 }
 

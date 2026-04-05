@@ -87,8 +87,8 @@ func resolveRepo(args []string) (string, error) {
 		return parseRepo(args[0])
 	}
 
-	//nolint:godox // Will be replaced with huh prompt.
-	// TODO(interactive): huh prompt for repo input
+	//nolint:godox
+	// TODO(#5): replace with huh prompt
 	return "", ErrNoRepo
 }
 

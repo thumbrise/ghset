@@ -109,8 +109,8 @@ func resolveApplyRepo(args []string) (string, error) {
 		return parseRepo(args[0])
 	}
 
-	//nolint:godox // Will be replaced with huh prompt.
-	// TODO(interactive): huh prompt for repo
+	//nolint:godox
+	// TODO(#5): replace with huh prompt
 	return "", ErrNoRepo
 }
 
@@ -126,7 +126,7 @@ func loadFromSource(ctx context.Context, client *gh.Client, from string) (config
 		return config.Load(os.Stdin)
 	}
 
-	//nolint:godox // Will be replaced with huh prompt.
-	// TODO(interactive): huh prompt for source
+	//nolint:godox
+	// TODO(#5): replace with huh prompt
 	return config.Repo{}, ErrNoSource
 }
