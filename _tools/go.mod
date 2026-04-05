@@ -1,4 +1,4 @@
-module github.com/thumbrise/resilience/tools
+module github.com/thumbrise/ghset/tools
 
 go 1.25.0
 

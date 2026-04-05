@@ -2,17 +2,18 @@
 
 ## Requirements
 
-- **Go 1.24.x** — exact major.minor match required.
-- **Docker** — golangci-lint runs in a container to guarantee consistent results regardless of your local setup.
+- **Go 1.26.x** — exact major.minor match required.
+- **[golangci-lint](https://golangci-lint.run/)** — install: `go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest`
 - **[Task](https://taskfile.dev/)** — task runner. Install: `go install github.com/go-task/task/v3/cmd/task@latest`
+- **[gh CLI](https://cli.github.com/)** — required at runtime. Install and authenticate: `gh auth login`.
 - **Node.js** (optional) — only for commitlint and docs build.
 
 ## First time setup
 
 ```bash
-git clone https://github.com/thumbrise/resilience.git
-cd resilience
-go test ./...
+git clone https://github.com/thumbrise/ghset.git
+cd ghset
+go build ./...
 ```
 
 ## Development workflow
@@ -26,58 +27,26 @@ task lint
 
 # Fix license headers
 task generate
+
+# Build and run
+go run . describe thumbrise/ghset
+go run . init my-repo --config config.yml
 ```
 
 ## Project structure
 
 ```
-resilience.go          Core: Option, Plugin, Events, Client, CallBuilder, Do
-sleepctx.go            Context-aware sleep (used by sub-packages)
-backoff/               Pure math: Exponential, Constant, Default
-retry/                 Retry Option: On, OnFunc, WithWaitHint
-otel/                  OTEL metrics Plugin (separate go.mod, external deps)
+main.go                Entry point
+cmd/
+  root.go              Cobra root command
+  describe.go          describe command — snapshot repo → YAML
+  init.go              init command — create repo from YAML
+internal/
+  config/              YAML config struct + marshal/unmarshal
+  gh/                  Wrapper around `gh api` subprocess
+  prompt/              huh-based interactive prompts
 _tools/                Dev tools: license-eye, govulncheck (separate go.mod)
-pkg/multimod/          Multi-module tooling (WIP, see docs/internals/multimod/)
 docs/                  VitePress documentation site
-```
-
-## Multi-module (planned)
-
-Currently the project is a monorepo with a single root module. Only `otel/` is a separate module (to keep core zero-deps).
-
-Full multi-module support (separate `go.mod` per sub-package) is planned and blocked on the [multimod](docs/internals/multimod/) tool we're building. See [devlog #3](/docs/devlog/) for the full story.
-
-## Writing an Option
-
-Any resilience pattern is a function:
-
-```go
-func MyPattern() resilience.Option {
-    return func(ctx context.Context, call func(context.Context) error) error {
-        // before
-        err := call(ctx)
-        // after
-        return err
-    }
-}
-```
-
-## Writing a Plugin
-
-Plugins observe — they don't control execution:
-
-```go
-type myPlugin struct{}
-
-func (p *myPlugin) Name() string { return "my-plugin" }
-
-func (p *myPlugin) Events() resilience.Events {
-    return resilience.Events{
-        OnAfterCall: func(ctx context.Context, attempt int, err error, d time.Duration) {
-            // observe
-        },
-    }
-}
 ```
 
 ## Commit messages
@@ -85,8 +54,8 @@ func (p *myPlugin) Events() resilience.Events {
 Conventional commits. English only.
 
 ```
-feat(retry): add jitter support
-fix(backoff): handle overflow on large attempts
+feat(describe): add rulesets support
+fix(init): handle private repo visibility
 docs: update getting-started guide
 ```
 
