@@ -84,7 +84,7 @@ linters:
     - spancheck
     - staticcheck
     - tagalign
-    - tagliatelle
+    #- tagliatelle  # disabled: struct tags must match GitHub API (snake_case)
     - testableexamples
     - testifylint
     - testpackage
@@ -107,6 +107,9 @@ linters:
           - gocyclo
           - gosec
         path: _test\.go
+      - linters:
+          - gochecknoinits
+        path: cmd/
       - linters:
           - errcheck
         text: .Close
@@ -131,7 +134,7 @@ formatters:
       sections:
         - standard
         - default
-        - prefix(github.com/thumbrise/resilience)
+        - prefix(github.com/thumbrise/ghset)
   enable:
     - gofumpt
     - gci

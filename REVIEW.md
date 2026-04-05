@@ -58,7 +58,7 @@ How to update:
 
 ## Dependencies
 
-- Minimize external dependencies. Core module must have zero external deps.
+- Minimize external dependencies.
 - `slog` for logging. No third-party loggers.
 - Apache 2.0 license header on every `.go` file.
 
@@ -67,8 +67,6 @@ How to update:
 - **Typed constructors over config structs** — when a flat config allows invalid combinations, use separate constructors that make illegal states unrepresentable.
 - **Functional options for optional parameters** — required params in the function signature, optional via `With*` functions.
 - **Per-entity state** — no shared or global mutable state. Each component owns its data.
-- **Multi-module isolation (target architecture)** — the goal is for every sub-package with external dependencies (otel, future circuit, grpc, etc.) to be a separate Go module with its own `go.mod`. Core stays zero-deps. Users pull only what they need. Currently, only `otel/` is a separate module — the rest live in the root module. Full multi-module support is blocked on [multimod](docs/internals/multimod/) tooling. See devlog #3 for rationale.
-- **OTEL-style versioning (target)** — when multi-module is enabled via multimod, semantic-release tags core (`v1.2.3`) and all sub-modules mirror the same version with their prefix (`otel/v1.2.3`). Currently, only core is tagged.
 
 ## Documentation
 
