@@ -30,7 +30,7 @@ task generate
 
 # Build and run
 go run . describe thumbrise/ghset
-go run . init my-repo --config config.yml
+go run . init my-repo --from config.yml
 ```
 
 ## Project structure

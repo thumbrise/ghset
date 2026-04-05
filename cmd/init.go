@@ -83,7 +83,7 @@ func runInit(cmd *cobra.Command, args []string) error {
 	// 1. Create repo — fatal, can't continue without it.
 	fmt.Fprintf(os.Stderr, "==> Creating repo %s...\n", name)
 
-	repoURL, err := client.RepoCreate(ctx, name, cfg.Settings.Visibility == "private")
+	repoURL, err := client.RepoCreate(ctx, name, cfg.Settings.Visibility)
 	if err != nil {
 		return fmt.Errorf("creating repo: %w", err)
 	}
@@ -188,6 +188,7 @@ func resolveRepoName(args []string) (string, error) {
 // applySettings patches repo settings via PATCH /repos/{owner}/{repo}.
 func applySettings(ctx context.Context, client *gh.Client, repo string, s config.Settings) error {
 	body := map[string]any{
+		"visibility":                  s.Visibility,
 		"has_issues":                  s.HasIssues,
 		"has_wiki":                    s.HasWiki,
 		"has_projects":                s.HasProjects,

@@ -55,9 +55,9 @@ security:
   vulnerability_alerts: true
 
 labels:
-    - name: "T: bug"
-      color: "d73a4a"
-      description: "Something isn't working"
+  - name: "T: bug"
+    color: "d73a4a"
+    description: "Something isn't working"
 
 rulesets:
   - name: "main"
