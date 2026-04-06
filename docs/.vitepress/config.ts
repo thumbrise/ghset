@@ -5,7 +5,7 @@ export default defineConfig({
   description: 'Declarative GitHub repository settings. Describe an existing repo into YAML, spin up a new repo from that YAML. Open-source CLI tool.',
   base: '/ghset/',
   sitemap: {
-    hostname: 'https://thumbrise.github.io/ghset',
+    hostname: 'https://thumbrise.github.io',
   },
   head: [
     ['meta', {property: 'og:type', content: 'website'}],
