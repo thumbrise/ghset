@@ -33,22 +33,6 @@ go run . describe thumbrise/ghset
 go run . init my-repo --from config.yml
 ```
 
-## Project structure
-
-```
-main.go                Entry point
-cmd/
-  root.go              Cobra root command
-  describe.go          describe command — snapshot repo → YAML
-  init.go              init command — create repo from YAML
-internal/
-  config/              YAML config struct + marshal/unmarshal
-  gh/                  Wrapper around `gh api` subprocess
-  prompt/              huh-based interactive prompts
-_tools/                Dev tools: license-eye, govulncheck (separate go.mod)
-docs/                  VitePress documentation site
-```
-
 ## Commit messages
 
 Conventional commits. English only.

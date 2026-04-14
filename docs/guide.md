@@ -1,20 +1,17 @@
-# ghset
+---
+title: "Guide — ghset"
+description: "Install ghset and copy GitHub repository settings in one command."
+head:
+  - - meta
+    - name: keywords
+      content: github repository settings cli, ghset install, ghset guide, copy github repo settings, declarative github config
+---
 
-[![CI](https://github.com/thumbrise/ghset/actions/workflows/ci.yml/badge.svg)](https://github.com/thumbrise/ghset/actions/workflows/ci.yml)
-[![Go Reference](https://pkg.go.dev/badge/github.com/thumbrise/ghset.svg)](https://pkg.go.dev/github.com/thumbrise/ghset)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](/LICENSE)
+# Guide
 
-Declarative GitHub repository settings. Describe an existing repo into YAML, spin up a new repo from that YAML.
+## Install
 
-## Why
-
-Every new GitHub repo starts with the same ritual: click through settings, toggle security options, recreate labels, set up branch protection. Multiply that by 10 repos and it's a whole afternoon. **ghset** turns all of that into one command.
-
-## Quick start
-
-Prerequisites: [gh CLI](https://cli.github.com/) installed and authenticated (`gh auth login`).
-
-### Install
+Only prerequisite: [gh CLI](https://cli.github.com/) installed and authenticated (`gh auth login`).
 
 **macOS / Linux**
 ```bash
@@ -28,7 +25,7 @@ go install github.com/thumbrise/ghset@latest
 
 **Manual** — grab a binary from [Releases](https://github.com/thumbrise/ghset/releases/latest).
 
-### Run
+## Quick start
 
 ```bash
 ghset init my-new-repo --from thumbrise/ghset
@@ -44,19 +41,19 @@ That's it. The new repo gets everything copied:
 
 ```bash
 # Snapshot repo settings → YAML
-ghset describe thumbrise/ghset > config.yml
+ghset describe owner/repo > config.yml
 
 # Create new repo from config
 ghset init my-new-repo --from config.yml
 
 # Or directly from another repo — no intermediate file
-ghset init my-new-repo --from thumbrise/ghset
+ghset init my-new-repo --from owner/repo
 
 # Apply config to an existing repo
-ghset apply thumbrise/ghset --from config.yml
+ghset apply owner/repo --from config.yml
 
 # Pipe — describe one, create another
-ghset describe thumbrise/ghset | ghset init my-new-repo
+ghset describe owner/repo | ghset init my-new-repo
 ```
 
 | Command | What it does |
@@ -65,14 +62,38 @@ ghset describe thumbrise/ghset | ghset init my-new-repo
 | `init` | Create new repo + apply settings |
 | `apply` | Apply settings to existing repo |
 
+## Config format
+
+Single YAML format — `describe` writes it, `init` and `apply` read it:
+
+```yaml
+settings:
+  visibility: public
+  allow_rebase_merge: true
+  delete_branch_on_merge: true
+
+security:
+  secret_scanning: true
+  vulnerability_alerts: true
+
+labels:
+  - name: "T: bug"
+    color: "d73a4a"
+    description: "Something isn't working"
+
+rulesets:
+  - name: "main"
+    target: branch
+    enforcement: active
+    rules:
+      - type: deletion
+      - type: pull_request
+        parameters:
+          required_approving_review_count: 1
+```
+
 ## How it works
 
 All GitHub API calls go through `gh` CLI as a subprocess. No tokens in the tool, no OAuth — `gh` handles auth entirely.
 
-## Docs & rationale
-
-**[thumbrise.github.io/ghset](https://thumbrise.github.io/ghset/)** — full docs, [why not Terraform / Probot / safe-settings](https://thumbrise.github.io/ghset/why), devlog.
-
-## License
-
-Apache 2.0
+No state files. No infrastructure. Just settings, copied.

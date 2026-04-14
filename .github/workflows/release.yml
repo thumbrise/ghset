@@ -32,3 +32,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+
+      - name: Check for new tag
+        id: tag
+        run: |
+          TAG=$(git describe --tags --exact-match 2>/dev/null || echo "")
+          echo "new=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Go
+        if: steps.tag.outputs.new != ''
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Run GoReleaser
+        if: steps.tag.outputs.new != ''
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
