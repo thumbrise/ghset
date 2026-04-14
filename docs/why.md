@@ -9,7 +9,7 @@ head:
 
 # Why ghset?
 
-GitHub template repos copy files. Not settings. Not labels. Not rulesets. Not security config.
+GitHub template repos copy files. Not settings. Not labels. Not rulesets. Not security config. If you need to **copy GitHub repository settings** from one repo to another, there is no built-in way — until `ghset init --from owner/repo`.
 
 Every developer who creates repos regularly hits the same wall: 20 minutes of clicking through Settings, Security, Labels, and Rulesets — for configuration they've already done on another repo.
 
