@@ -7,8 +7,8 @@ hero:
   tagline: "ghset init --from owner/repo — copy settings, security, labels, and rulesets. One command."
   actions:
     - theme: brand
-      text: Why ghset?
-      link: /why
+      text: Guide
+      link: /guide
     - theme: alt
       text: Devlog
       link: /devlog/
