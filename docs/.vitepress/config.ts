@@ -24,7 +24,7 @@ export default defineConfig({
 
   themeConfig: {
     nav: [
-      {text: 'Why ghset?', link: '/why'},
+      {text: 'Guide', link: '/guide'},
       {text: 'Devlog', link: '/devlog/'},
       {text: 'GitHub', link: 'https://github.com/thumbrise/ghset'},
     ],
@@ -34,6 +34,7 @@ export default defineConfig({
         {
           text: 'Guide',
           items: [
+            {text: 'Guide', link: '/guide'},
             {text: 'Why ghset?', link: '/why'},
           ],
         },

@@ -55,29 +55,3 @@ The `describe` direction — snapshotting a repo into a portable config — does
 | Setup time | 0 (uses `gh`) | Hours (HCL + state) | 0 |
 | Infrastructure | None | State file + backend | None |
 | Learning curve | 2 commands | Terraform language | Click UI |
-
-## Install
-
-```bash
-go install github.com/thumbrise/ghset@latest
-```
-
-Only prerequisite: [gh CLI](https://cli.github.com/) installed and authenticated.
-
-## Usage
-
-```bash
-# Describe → YAML
-ghset describe owner/repo > settings.yml
-
-# Init from file
-ghset init new-repo --from settings.yml
-
-# Init directly from another repo
-ghset init new-repo --from owner/repo
-
-# Pipe
-ghset describe owner/repo | ghset init new-repo
-```
-
-No tokens. No state files. No infrastructure. Just settings, copied.
