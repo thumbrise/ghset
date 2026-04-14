@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: ghset
-  text: Declarative GitHub Repository Settings
-  tagline: "Describe an existing repo into YAML. Spin up a new repo from that YAML. One command each way."
+  text: Copy GitHub Repository Settings
+  tagline: "ghset init --from owner/repo — copy settings, security, labels, and rulesets. One command."
   actions:
     - theme: brand
       text: Why ghset?
@@ -38,3 +38,19 @@ features:
     link: /devlog/001-the-graveyard
     linkText: Read the graveyard report →
 ---
+
+## What is ghset?
+
+ghset is an open-source CLI tool that lets you **copy GitHub repository settings** from one repo to another — in one command:
+
+```bash
+ghset init my-new-repo --from owner/existing-repo
+```
+
+That single line creates `my-new-repo` and applies every setting, security toggle, label, and ruleset from the source. No clicking through the UI, no Terraform, no state files. Just `init --from`.
+
+Need a portable snapshot first? `ghset describe owner/repo > settings.yml` exports everything to YAML. Edit it, commit it, apply it later with `ghset init`. **GitHub repository settings as code** — that's the idea.
+
+## Why another GitHub repository settings tool?
+
+Every existing tool for **declarative GitHub settings** is either dead, broken, or requires heavy infrastructure. GitHub template repos copy files — not settings, labels, rulesets, or security config. ghset fills the gap: a lightweight, pipe-friendly **GitHub repository settings tool** built around `init --from` — the fastest way to clone a repo's configuration.

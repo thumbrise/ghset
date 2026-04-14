@@ -2,7 +2,7 @@ import {defineConfig} from 'vitepress'
 
 export default defineConfig({
   title: 'ghset — Copy GitHub Repository Settings',
-  description: 'Declarative GitHub repository settings. Describe an existing repo into YAML, spin up a new repo from that YAML. Open-source CLI tool.',
+  description: 'ghset init --from owner/repo — copy GitHub repository settings in one command. Settings, security, labels, rulesets. Open-source CLI tool.',
   base: '/ghset/',
   sitemap: {
     hostname: 'https://thumbrise.github.io/ghset/',
@@ -13,12 +13,12 @@ export default defineConfig({
     ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/ghset/apple-touch-icon.png' }],
     ['meta', { property: 'og:image', content: 'https://thumbrise.github.io/ghset/og-image.png' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:title', content: 'ghset — declarative GitHub repository settings' }],
-    ['meta', { property: 'og:description', content: 'Describe an existing repo into YAML, spin up a new repo from that YAML. Copy settings, security, labels, rulesets in one command.' }],
+    ['meta', { property: 'og:title', content: 'ghset — Copy GitHub Repository Settings' }],
+    ['meta', { property: 'og:description', content: 'ghset init --from owner/repo — copy settings, security, labels, and rulesets from any GitHub repo in one command. Open-source Go CLI.' }],
     ['meta', { property: 'og:url', content: 'https://thumbrise.github.io/ghset/' }],
     ['meta', { name: 'twitter:card', content: 'summary' }],
-    ['meta', { name: 'twitter:title', content: 'ghset — declarative GitHub repository settings' }],
-    ['meta', { name: 'twitter:description', content: 'Copy GitHub repo settings in one command. Settings, security, labels, rulesets — describe and apply.' }],
+    ['meta', { name: 'twitter:title', content: 'ghset — Copy GitHub Repository Settings' }],
+    ['meta', { name: 'twitter:description', content: 'ghset init --from owner/repo — copy settings, security, labels, rulesets from any repo. One command, zero infrastructure.' }],
     ['meta', { name: 'keywords', content: 'github repository settings cli, declarative github config, github repo settings yaml, copy github repo settings, github settings as code, ghset' }],
   ],
 
