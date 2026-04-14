@@ -3,7 +3,7 @@ set -e
 
 REPO="thumbrise/ghset"
 BINARY="ghset"
-INSTALL_DIR="/usr/local/bin"
+INSTALL_DIR="${HOME}/.local/bin"
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
@@ -35,7 +35,12 @@ echo "Downloading ${BINARY} for ${OS}/${ARCH}..."
 curl -sfL "$URL" -o "${TMPDIR}/${BINARY}.tar.gz"
 tar xz -C "$TMPDIR" -f "${TMPDIR}/${BINARY}.tar.gz" "$BINARY"
 
-sudo mkdir -p "$INSTALL_DIR"
-sudo mv "${TMPDIR}/${BINARY}" "${INSTALL_DIR}/${BINARY}"
+mkdir -p "$INSTALL_DIR"
+mv "${TMPDIR}/${BINARY}" "${INSTALL_DIR}/${BINARY}"
 
 echo "Installed ${BINARY} to ${INSTALL_DIR}/${BINARY}"
+
+case ":$PATH:" in
+  *":${INSTALL_DIR}:"*) ;;
+  *) echo "Add ${INSTALL_DIR} to your PATH: export PATH=\"${INSTALL_DIR}:\$PATH\"" ;;
+esac
