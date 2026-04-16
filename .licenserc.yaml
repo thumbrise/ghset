@@ -3,7 +3,7 @@ header:
     spdx-id: Apache-2.0
     copyright-owner: thumbrise
     copyright-year: '2026'
-    software-name: resilience
+    software-name: ghset
 
   paths:
     - '**/*.go'

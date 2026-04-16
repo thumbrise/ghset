@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://thumbrise.github.io/resilience/sitemap.xml
+Sitemap: https://thumbrise.github.io/ghset/sitemap.xml
